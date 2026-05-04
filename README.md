@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Practice — AI-Powered Task Management
 
-## Getting Started
+A fullstack portfolio project showcasing modern web development practices: server-rendered React with Next.js 16, type-safe database access, secure authentication, and a streaming AI assistant.
 
-First, run the development server:
+## Features
+
+- **Authentication** — email/password sign-up and sign-in with JWT sessions stored in HTTP-only cookies, bcrypt password hashing
+- **Task management** — create, prioritize, schedule, and move tasks across `To do → In progress → Done` columns
+- **AI assistant** — streaming chat sidebar that has context on your current tasks, powered by the Vercel AI SDK
+- **Type safety end-to-end** — TypeScript throughout, Drizzle ORM for the database, Zod for input validation
+- **Server Actions** — mutations call type-safe server functions directly from React components, no manual REST plumbing
+- **Polished UI** — Tailwind CSS v4, dark mode, responsive layout, accessible primitives
+
+## Stack
+
+| Layer        | Tech                                              |
+| ------------ | ------------------------------------------------- |
+| Framework    | Next.js 16 (App Router, React 19, Turbopack)      |
+| Language     | TypeScript                                        |
+| Database     | SQLite via `better-sqlite3` + Drizzle ORM         |
+| Auth         | `jose` (JWT) + `bcryptjs`                         |
+| Validation   | Zod v4                                            |
+| AI           | Vercel AI SDK v6 + AI Gateway (`anthropic/...`)   |
+| Styling      | Tailwind CSS v4 + custom design tokens            |
+| Icons        | lucide-react                                      |
+
+## Project structure
+
+```
+src/
+├── app/
+│   ├── (auth)/                # sign-in, sign-up route group
+│   │   ├── actions.ts         # signUp / signIn / signOut Server Actions
+│   │   ├── sign-in/
+│   │   └── sign-up/
+│   ├── api/chat/route.ts      # streaming AI endpoint
+│   ├── dashboard/             # protected dashboard
+│   │   ├── actions.ts         # task CRUD Server Actions
+│   │   ├── ai-assistant.tsx   # streaming chat client
+│   │   ├── new-task-form.tsx
+│   │   ├── task-board.tsx
+│   │   └── page.tsx
+│   ├── layout.tsx
+│   └── page.tsx               # landing page
+├── components/ui/             # Button, Input, Label, Textarea
+└── lib/
+    ├── auth.ts                # session helpers
+    ├── db/                    # Drizzle client + schema
+    └── utils.ts
+```
+
+## Getting started
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure environment
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local`:
+
+- `AUTH_SECRET` — generate with `openssl rand -base64 32`
+- `AI_GATEWAY_API_KEY` — optional. Get one at [vercel.com/ai-gateway](https://vercel.com/ai-gateway). Without it, the assistant runs in offline demo mode.
+
+### 3. Run database migrations
+
+```bash
+npm run db:migrate
+```
+
+This creates `data.db` (SQLite) in the project root with the `users` and `tasks` tables.
+
+### 4. Start the dev server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000), create an account, and start adding tasks.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Script                | Purpose                                       |
+| --------------------- | --------------------------------------------- |
+| `npm run dev`         | Start the dev server (Turbopack)              |
+| `npm run build`       | Production build                              |
+| `npm run start`       | Run the production build                      |
+| `npm run lint`        | ESLint                                        |
+| `npm run db:generate` | Generate a new SQL migration from the schema |
+| `npm run db:migrate`  | Apply migrations to the local database        |
+| `npm run db:studio`   | Open Drizzle Studio in the browser            |
 
-## Learn More
+## Deploying
 
-To learn more about Next.js, take a look at the following resources:
+This app is ready to deploy on Vercel. For production:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Switch the database to a hosted Postgres (e.g. Neon via the Vercel Marketplace) and update `src/lib/db/index.ts` and `drizzle.config.ts` to use `drizzle-orm/postgres-js` or `drizzle-orm/neon-http`.
+2. Set `AUTH_SECRET` and `AI_GATEWAY_API_KEY` in the Vercel project's environment variables.
+3. `git push` — Vercel handles the rest.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## What this project demonstrates
 
-## Deploy on Vercel
+- Designing a typed schema and writing migrations
+- Implementing authentication from first principles (no external library)
+- Composing React Server Components with client interactivity (`useActionState`, `useTransition`)
+- Building an AI feature that streams responses to the UI
+- Structuring an App Router project with route groups, layouts, and Server Actions
+- Writing accessible, responsive UI without a heavy component library
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built by **arslan**.
