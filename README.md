@@ -1,4 +1,4 @@
-# Practice — AI-Powered Task Management
+# Personal Project — AI-Powered Task Management
 
 A fullstack portfolio project showcasing modern web development practices: server-rendered React with Next.js 16, type-safe database access, secure authentication, and a streaming AI assistant.
 

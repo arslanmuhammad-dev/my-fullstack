@@ -17,7 +17,7 @@ export default async function DashboardLayout({
       <header className="border-b sticky top-0 z-10 bg-background/80 backdrop-blur">
         <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
           <Link href="/dashboard" className="font-semibold tracking-tight">
-            Practice
+            Personal Project
           </Link>
           <div className="flex items-center gap-4 text-sm">
             <span className="text-muted-foreground hidden sm:inline">

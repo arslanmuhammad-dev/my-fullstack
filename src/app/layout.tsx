@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Practice — AI-Powered Task Management",
+  title: "Personal Project — AI-Powered Task Management",
   description:
     "A fullstack portfolio project showcasing Next.js 16, TypeScript, Drizzle ORM, JWT auth, and the Vercel AI SDK.",
 };

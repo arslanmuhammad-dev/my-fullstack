@@ -21,7 +21,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 font-semibold tracking-tight">
             <Sparkles className="h-4 w-4 text-accent" />
-            Practice
+            Personal Project
           </div>
           <nav className="flex items-center gap-3">
             <Link
@@ -51,7 +51,7 @@ export default async function HomePage() {
             <span className="text-accent">AI-powered</span> task flow.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Practice is a modern productivity app built with Next.js 16,
+            Personal Project is a modern productivity app built with Next.js 16,
             TypeScript, Drizzle ORM, JWT auth, and the Vercel AI SDK.
           </p>
           <div className="mt-10 flex items-center justify-center gap-3">

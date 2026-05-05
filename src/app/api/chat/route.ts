@@ -31,7 +31,7 @@ export async function POST(req: Request) {
         .join("\n")
     : "(no tasks yet)";
 
-  const system = `You are Practice's productivity assistant. You help ${user.name} stay organized.
+  const system = `You are Personal Project's productivity assistant. You help ${user.name} stay organized.
 Be concise and actionable. When asked, summarize, prioritize, or suggest next actions based on their tasks.
 
 Current tasks:
